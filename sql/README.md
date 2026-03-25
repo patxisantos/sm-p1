@@ -1,0 +1,1 @@
+Carpeta que contendrá todos los scripts SQL (DDL, DML, etc.) necesarios para la práctica.
