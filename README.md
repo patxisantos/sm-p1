@@ -35,7 +35,7 @@ Francisco Javier Santos Rivas
 
 1. Instalar dependencia:
    ```bash
-   pip install psycopg2-binary
+   pip install psycopg2
    ```
 
 2. Editar `benchmark_agroceuta.py` y cambiar:
