@@ -1,1 +1,0 @@
-Carpeta que contendrá todos los diagramas ER (puede que los OLAP también)
