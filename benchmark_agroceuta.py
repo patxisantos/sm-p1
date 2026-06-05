@@ -5,8 +5,8 @@ import statistics
 conn = psycopg2.connect(    
     host="localhost",    
     database="agroceuta_dw",    
-    user="TU_USUARIO",    
-    password="TU_PASSWORD")
+    user="postgres",    
+    password="UGRV1rtuAl24IO")
 
 cur = conn.cursor()
 
