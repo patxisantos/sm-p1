@@ -25,10 +25,12 @@ Francisco Javier Santos Rivas
 │   ├── etl_agroceuta.ktr
 │   └── analisis_olap_agroceuta.ktr
 ├── sql/                              # Scripts SQL
-│   └── creacion_agroceuta.sql
+│   ├── creacion_agroceuta.sql
+│   └── ampliacion_agroceuta.sql
 ├── benchmark_agroceuta.py
 ├── practica1_SANTOSRIVAS.pdf
 ├── documento_practica2_SANTOS_RIVAS.pdf
+├── practica3_SANTOSRIVAS.pdf
 └── README.md
 ```
 
@@ -115,3 +117,45 @@ Automatización del proceso ETL usando **Pentaho Data Integration (PDI)**. Inclu
    1. `limpieza_meteo_completo.ktr`
    2. `etl_agroceuta.ktr` *(ejecutar dos veces: primera carga staging, segunda carga OLAP)*
    3. `analisis_olap_agroceuta.ktr`
+
+***
+
+## Práctica 3 - Consultas multidimensionales, optimización y puesta en valor en un sistema BI
+
+Explotación analítica del Data Warehouse mediante consultas SQL multidimensionales, optimización de planes de ejecución e implementación de un dashboard de Business Intelligence con Metabase.
+
+**Hito 1 - Consultas analíticas:** formulación de las cinco preguntas de negocio de AgroCeuta como consultas SQL ejecutables sobre los tres modelos (OLTP, estrella y snowflake), con identificación de las operaciones multidimensionales que materializan (roll-up, drill-down, slice, dice) y verificación de resultados.
+
+**Hito 2 - Optimización:** análisis de planes de ejecución con `EXPLAIN ANALYZE` pre y post-optimización, creación de un índice compuesto sobre las claves de join de `fact_exportaciones` y materialización de la consulta más costosa (C1) en una vista materializada. Benchmark comparativo con script Python.
+
+**Hito 3 - Business Intelligence:** conexión del DW a Metabase, construcción de un dashboard con cinco visualizaciones (una por pregunta de negocio), tres KPIs (ingresos netos, margen neto, precio medio/kg) y cuatro filtros interactivos que materializan operaciones OLAP reales (slice, dice, drill-down, roll-up).
+
+### Contenido relevante
+
+- `sql/ampliacion_agroceuta.sql` - ampliación de la población del DW (de 180 a 360 filas en `fact_exportaciones`) para mejorar las visualizaciones en Metabase.
+- `practica3_SANTOSRIVAS.pdf` - memoria final entregada.
+
+### Requisitos adicionales
+
+- Metabase (versión JAR o Docker)
+- El DW debe estar montado previamente con `sql/creacion_agroceuta.sql` (Práctica 1)
+
+### Cómo ampliar la población del DW
+
+Con la base de datos ya cargada, ejecutar:
+
+```bash
+psql -U postgres -d agroceuta_dw -f sql/ampliacion_agroceuta.sql
+```
+
+### Cómo conectar Metabase al DW
+
+1. Lanzar Metabase:
+   ```bash
+   java -jar metabase.jar
+   ```
+
+2. En el asistente de configuración inicial, añadir una conexión PostgreSQL:
+   - Host: `localhost`, Port: `5432`
+   - Database: `agroceuta_dw`, Schema: `olap_star`
+   - User/Password: los de tu instalación local
